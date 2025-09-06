@@ -1,10 +1,15 @@
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import CategoriesList from './components/categories-list/categories-list.component.jsx';
+import Home from './routes/home/home.component.jsx'
 
 
 
 function App() {
-  return <CategoriesList></CategoriesList>;
+  return (
+    <Routes>
+      <Route path='/home' element={<Home />} />
+    </Routes>
+  );
 }
 
 export default App;

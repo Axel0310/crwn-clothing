@@ -1,9 +1,9 @@
-import useCategories from "../../hooks/useCategories.jsx";
+import useFetchData from "../../hooks/useFetchData.jsx";
 import CategoryItem from "../category-item/category-item.component.jsx";
 import "./categories-list.styles.scss";
 
 const CategoriesList = () => {
-  const categories = useCategories();
+  const categories = useFetchData("data/categories.json", 'categories');
 
   return (
     <div className="categories-list-container">
