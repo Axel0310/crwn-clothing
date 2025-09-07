@@ -1,13 +1,15 @@
 import { Routes, Route } from 'react-router-dom';
-import './App.css';
 import Home from './routes/home/home.component.jsx'
+import Header from './routes/header/header.component.jsx';
+import './App.scss';
 
 
-
-function App() {
+const App = () => {
   return (
     <Routes>
-      <Route path='/home' element={<Home />} />
+      <Route path='/' element={<Header />} >
+        <Route index element={<Home />} />
+      </Route>
     </Routes>
   );
 }
