@@ -1,18 +1,19 @@
 import { Outlet, Link } from "react-router-dom";
-import "./header.styles.scss";
+import { ReactComponent as CrwnLogo } from "../../assets/crown.svg"
+import "./navigation.styles.scss";
 
-const Header = () => {
+const Navigation = () => {
   return (
     <>
-      <div className="header-container">
-        {/* <img className="header-logo" src="/image" alt=""/> */}
+      <div className="navigation-container">
+        {/* <img className="navigation-logo" src="/image" alt=""/> */}
         <Link to="/">
-            <p className="header-logo">Logo</p>
+            <CrwnLogo className="navigation-logo" />
         </Link>
         <div className="navigation-container">
             <Link to="/shop" className="nav-link">Shop</Link>
             <Link to="/contact" className="nav-link">Contact</Link>
-            <Link className="nav-link">Sign in</Link>
+            <Link to="/sign-in" className="nav-link">Sign in</Link>
             <Link className="nav-link cart-logo">Logo</Link>
         </div>
       </div>
@@ -21,4 +22,4 @@ const Header = () => {
   )
 }
 
-export default Header;
+export default Navigation;

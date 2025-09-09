@@ -1,8 +1,13 @@
 body {
   margin: 0;
   font-family: 'Open Sans', sans-serif;
-  
-  a {
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
     text-decoration: none;
     color: inherit;
 
@@ -11,4 +16,3 @@ body {
       font-weight: bold;
     }
   }
-}
