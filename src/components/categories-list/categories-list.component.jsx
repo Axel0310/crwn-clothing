@@ -1,4 +1,4 @@
-import useFetchData from "../../hooks/useFetchData.jsx";
+import useFetchData from "../../hooks/useFetchData.js";
 import CategoryItem from "../category-item/category-item.component.jsx";
 import "./categories-list.styles.scss";
 
