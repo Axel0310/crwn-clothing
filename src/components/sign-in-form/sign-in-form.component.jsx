@@ -4,6 +4,8 @@ import Button from "../button/button.component";
 import useFormObjectInput from "../../hooks/useFormObjectInput";
 import GoogleSignInButton from "../google-sign-in-button/google-sign-in-button";
 import { signInEmailAndPassword } from "../../utils/firebase/firebase.utils";
+import { use } from "react";
+import { UserContext } from "../../context/user.context";
 
 const defaultFormFields = {
   email: "",
@@ -11,6 +13,7 @@ const defaultFormFields = {
 };
 
 const SignInForm = () => {
+  const {setCurrentUser} = use(UserContext);
   const formFieldsProps = useFormObjectInput(defaultFormFields);
   const {
     value: { email, password },
@@ -23,6 +26,7 @@ const SignInForm = () => {
 
     try {
       const { user } = await signInEmailAndPassword(email, password);
+      setCurrentUser(user);
       resetState();
     } catch (error) {
       if(error.code === "auth/invalid-credential") {
