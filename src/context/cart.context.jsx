@@ -1,18 +1,32 @@
 import { createContext, useState } from "react";
+import { addToCart, getTotalNumberOfItems, getCartTotalPrice } from "../helpers/cart.helper";
+
 
 export const CartContext = createContext({
     isCartDropdownDisplayed: false,
-    toggleCartDropDown: null
+    toggleCartDropDown: null,
+    cartItems: [],
+    addItemToCart: null,
+    cartCount: 0,
+    cartTotalPrice: 0,
 });
 
 export const CartProvider = ({children}) => {
     const [isCartDropdownDisplayed, setIsCartDropdownDisplayed] = useState(false);
+    const [cartItems, setCartItems] = useState([]);
 
     const toggleCartDropDown = () => {
         setIsCartDropdownDisplayed(!isCartDropdownDisplayed);
     }
 
-    const value = {isCartDropdownDisplayed, toggleCartDropDown};
+    const addItemToCart = (productToAdd) => {
+        setCartItems(addToCart(cartItems, productToAdd));
+    }
+
+    const cartCount = getTotalNumberOfItems(cartItems);
+    const cartTotalPrice = getCartTotalPrice(cartItems);
+
+    const value = {isCartDropdownDisplayed, toggleCartDropDown, cartItems, addItemToCart, cartCount, cartTotalPrice};
 
     return (
         <CartContext value={value}>{children}</CartContext>
