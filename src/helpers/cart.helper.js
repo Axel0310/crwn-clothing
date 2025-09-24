@@ -18,21 +18,19 @@ export const addToCart = (cartItems, productToAdd) => {
     return updatedCartItems;
 }
 
-export const deleteItemFromCart = (cartItems, productId) => {
-    const productIndex = getProductIndex(cartItems, productId);
-    return [...cartItems.slice(0, productIndex), ...cartItems.slice(productIndex)]
+export const deleteFromCart = (cartItems, productId) => {
+    return cartItems.filter((item) => item.id !== productId);
 }
 
-export const removeItemFromCart = (cartItems, productId) => {
+export const removeFromCart = (cartItems, productId) => {
     const productIndex = getProductIndex(cartItems, productId);
-    
     if(cartItems[productIndex].quantity === 1) {
-        return deleteItemFromCart(cartItems, productId);
+        return deleteFromCart(cartItems, productId);
     }
     
     const updatedCartItems = [...cartItems];
 
-    updateProductQuantity(updatedCartItems, productIndex, true);
+    updateProductQuantity(updatedCartItems, productIndex, false);
     return updatedCartItems;
 }
 

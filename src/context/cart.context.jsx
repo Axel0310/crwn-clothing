@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { addToCart, getTotalNumberOfItems, getCartTotalPrice } from "../helpers/cart.helper";
+import { addToCart, getTotalNumberOfItems, getCartTotalPrice, removeFromCart, deleteFromCart } from "../helpers/cart.helper";
 
 
 export const CartContext = createContext({
@@ -7,6 +7,8 @@ export const CartContext = createContext({
     toggleCartDropDown: null,
     cartItems: [],
     addItemToCart: null,
+    removeItemFromCart: null,
+    deleteItemFromCart: null,
     cartCount: 0,
     cartTotalPrice: 0,
 });
@@ -23,10 +25,18 @@ export const CartProvider = ({children}) => {
         setCartItems(addToCart(cartItems, productToAdd));
     }
 
+    const removeItemFromCart = (productId) => {
+        setCartItems(removeFromCart(cartItems, productId))
+    }
+
+    const deleteItemFromCart = (productId) => {
+        setCartItems(deleteFromCart(cartItems, productId))
+    }
+
     const cartCount = getTotalNumberOfItems(cartItems);
     const cartTotalPrice = getCartTotalPrice(cartItems);
 
-    const value = {isCartDropdownDisplayed, toggleCartDropDown, cartItems, addItemToCart, cartCount, cartTotalPrice};
+    const value = {isCartDropdownDisplayed, toggleCartDropDown, cartItems, addItemToCart, removeItemFromCart, deleteItemFromCart, cartCount, cartTotalPrice};
 
     return (
         <CartContext value={value}>{children}</CartContext>
