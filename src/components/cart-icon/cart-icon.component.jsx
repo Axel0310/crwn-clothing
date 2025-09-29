@@ -4,10 +4,10 @@ import { use } from "react";
 import { CartContext } from "../../context/cart.context";
 
 const CartIcon = () => {
-    const { toggleCartDropDown, cartCount } = use(CartContext);
+    const { setIsCartDropdownDisplayed, cartCount } = use(CartContext);
 
     return (
-        <div onClick={toggleCartDropDown} className="cart-icon-container">
+        <div onClick={setIsCartDropdownDisplayed} className="cart-icon-container">
             <ShoppingIcon className="shopping-icon"/>
             <span className="item-count">{cartCount}</span>
         </div>

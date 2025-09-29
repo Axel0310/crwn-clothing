@@ -3,7 +3,7 @@ import useFormObjectInput from "../../hooks/useFormObjectInput.js";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
-} from "../../utils/firebase/firebase.utils.js";
+} from "../../helpers/firebase.utils";
 import FormInput from "../form-input/form-input.component.jsx";
 import Button from "../button/button.component.jsx";
 

@@ -2,7 +2,7 @@ import Button from "../button/button.component";
 import {
   signInWithGooglePopup,
   createUserDocumentFromAuth,
-} from "../../utils/firebase/firebase.utils";
+} from "../../helpers/firebase.utils";
 
 const GoogleSignInButton = ({...props}) => {
   const logGoogleUser = async () => {

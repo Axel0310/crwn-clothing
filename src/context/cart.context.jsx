@@ -1,44 +1,76 @@
 import { createContext, useReducer } from "react";
-import { cartReducer, INITIAL_CART_STATE, CART_ACTION_TYPE } from "../reducers/cart-reducer/cart-reducer";
+import {
+  cartReducer,
+  INITIAL_CART_STATE,
+  CART_ACTION_TYPE,
+} from "../reducers/cart-reducer/cart-reducer";
+import {
+  getCartTotalPrice,
+  addToCart,
+  removeFromCart,
+  getTotalNumberOfItems,
+  deleteFromCart,
+} from "../helpers/cart.helper";
+import { createAction } from "../helpers/reducer.helper";
 
 export const CartContext = createContext({
-    isCartDropdownDisplayed: false,
-    toggleCartDropDown: null,
-    cartItems: [],
-    addItemToCart: null,
-    removeItemFromCart: null,
-    deleteItemFromCart: null,
-    cartCount: 0,
-    cartTotalPrice: 0,
+  isCartDropdownDisplayed: false,
+  toggleCartDropDown: null,
+  cartItems: [],
+  addItemToCart: null,
+  removeItemFromCart: null,
+  deleteItemFromCart: null,
+  cartCount: 0,
+  cartTotalPrice: 0,
 });
 
-export const CartProvider = ({children}) => {
-    // const [isCartDropdownDisplayed, setIsCartDropdownDisplayed] = useState(false);
-    // const [cartItems, setCartItems] = useState([]);
-    const [ state, dispatch ] = useReducer(cartReducer, INITIAL_CART_STATE);
+export const CartProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(cartReducer, INITIAL_CART_STATE);
+  const { isCartDropdownDisplayed, cartItems } = state;
 
-    const toggleCartDropDown = () => {
-        dispatch({type: CART_ACTION_TYPE.TOGGLE_CART_DROPDOWN});
-    }
+  const setCartItems = (updatedCartItems) => {
+    const updatedCartCount = getTotalNumberOfItems(updatedCartItems);
+    const updatedCartTotal = getCartTotalPrice(updatedCartItems);
 
-    const addItemToCart = (productToAdd) => {
-        dispatch({type: CART_ACTION_TYPE.ADD_ITEM_TO_CART, payload: {productToAdd}});
-    }
+    dispatch(
+      createAction(CART_ACTION_TYPE.SET_CART_ITEMS, {
+        cartItems: updatedCartItems,
+        cartCount: updatedCartCount,
+        cartTotalPrice: updatedCartTotal,
+      })
+    );
+  };
 
-    const removeItemFromCart = (productId) => {
-        dispatch({type: CART_ACTION_TYPE.REMOVE_ITEM_FROM_CART, payload: {productId: productId}});
-    }
+  const setIsCartDropdownDisplayed = () => {
+    dispatch(
+      createAction(CART_ACTION_TYPE.TOGGLE_CART_DROPDOWN, {
+        isCartDropdownDisplayed: !isCartDropdownDisplayed,
+      })
+    );
+  };
 
-    const deleteItemFromCart = (productId) => {
-        dispatch({type: CART_ACTION_TYPE.DELETE_ITEM_FROM_CART, payload: {productId: productId}});
-    }
+  const addItemToCart = (productToAdd) => {
+    const updatedCartItems = addToCart(cartItems, productToAdd);
+    setCartItems(updatedCartItems);
+  };
 
-    // const cartCount = getTotalNumberOfItems(cartItems);
-    // const cartTotalPrice = getCartTotalPrice(cartItems);
+  const removeItemFromCart = (productId) => {
+    const updatedCartItems = removeFromCart(cartItems, productId);
+    setCartItems(updatedCartItems);
+  };
 
-    const value = {...state, toggleCartDropDown, addItemToCart, removeItemFromCart, deleteItemFromCart };
+  const deleteItemFromCart = (productId) => {
+    const updatedCartItems = deleteFromCart(cartItems, productId);
+    setCartItems(updatedCartItems);
+  };
 
-    return (
-        <CartContext value={value}>{children}</CartContext>
-    )
-}
+  const value = {
+    ...state,
+    setIsCartDropdownDisplayed,
+    addItemToCart,
+    removeItemFromCart,
+    deleteItemFromCart,
+  };
+
+  return <CartContext value={value}>{children}</CartContext>;
+};

@@ -3,7 +3,7 @@ import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 import useFormObjectInput from "../../hooks/useFormObjectInput";
 import GoogleSignInButton from "../google-sign-in-button/google-sign-in-button";
-import { signInEmailAndPassword } from "../../utils/firebase/firebase.utils";
+import { signInEmailAndPassword } from "../../helpers/firebase.utils";
 
 const defaultFormFields = {
   email: "",
