@@ -1,3 +1,5 @@
+// File not used anymore but kept as example
+
 import { useState, createContext, useEffect } from "react";
 import { getCategoriesAndDocuments } from "../helpers/firebase.utils";
 

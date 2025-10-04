@@ -1,3 +1,5 @@
+// File not used anymore but kept as example
+
 import { createContext, useState, useEffect } from "react";
 import { onAuthStateChangedListener, createUserDocumentFromAuth } from "../helpers/firebase.utils";
 
